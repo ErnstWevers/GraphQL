@@ -21,8 +21,8 @@ const typeDefs = `
 
   type Query {
     movies: [Movie]
+    person(id: String): Person
     movie(id: String, imdb_id: String): Movie
-    search(q: String): SearchResult
   }
 `;
 
@@ -44,8 +44,11 @@ const resolvers = {
         }
       }
     },
-    movies: (obj, args, context, info) => {
-      // TODO: implement this
+    person: async (obj, args, context, info) => {
+      if(args.id){
+        return http
+          .get(`https://api.themoviedb.org/3/person/${args.id}?api_key=${MOVIE_DB_API_KEY}&language=en-US`)
+      }
     },
   },
 };
