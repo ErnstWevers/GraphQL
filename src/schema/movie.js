@@ -20,7 +20,7 @@ const typeDefs = `
   union SearchResult = Person | Movie
 
   type Query {
-    movies: [Movie]
+    movies(title: String): [Movie]
     person(id: String): Person
     movie(id: String, imdb_id: String): Movie
   }
@@ -50,6 +50,13 @@ const resolvers = {
           .get(`https://api.themoviedb.org/3/person/${args.id}?api_key=${MOVIE_DB_API_KEY}&language=en-US`)
       }
     },
+    movies: async (obj, args, context, info) => {
+      if(args.title) {
+        const response = await http
+          .get(`https://api.themoviedb.org/3/search/movie?api_key=${MOVIE_DB_API_KEY}&language=en-US&page=1&include_adult=false&query=${args.title}`)
+        return response.results
+      }
+    }
   },
 };
 
