@@ -10,12 +10,19 @@ const typeDefs = `
     imdb_id: String
     title: String
     tagline: String
-    release_date : String
+    release_date: String
   }
+
+  type Person {
+    name: String
+  }
+
+  union SearchResult = Person | Movie
 
   type Query {
     movies: [Movie]
     movie(id: String, imdb_id: String): Movie
+    search(q: String): SearchResult
   }
 `;
 
