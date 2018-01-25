@@ -56,6 +56,8 @@ const resolvers = {
         return response.results
       }
     },
+    //approach this API endpointURL with a post the correct header
+    //one option for this is to use import gql from 'graphql-tag'
     //curl -X POST -H "Content-Type: application/json" -d '{"query":"{test}"}' http://localhost:4000/graphql
     test: async (obj, args, context, info) => {
       return "Greetings Testman!"
