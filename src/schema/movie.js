@@ -17,12 +17,11 @@ const typeDefs = `
     name: String
   }
 
-  union SearchResult = Person | Movie
-
   type Query {
     movies(title: String): [Movie]
     person(id: String): Person
     movie(id: String, imdb_id: String): Movie
+    test : String
   }
 `;
 
@@ -56,6 +55,10 @@ const resolvers = {
           .get(`https://api.themoviedb.org/3/search/movie?api_key=${MOVIEDBAPIKEY}&language=en-US&page=1&include_adult=false&query=${args.title}`)
         return response.results
       }
+    },
+    //curl -X POST -H "Content-Type: application/json" -d '{"query":"{test}"}' http://localhost:4000/graphql
+    test: async (obj, args, context, info) => {
+      return "Greetings Testman!"
     }
   },
 };
