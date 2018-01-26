@@ -3,6 +3,7 @@ import koaRouter from 'koa-router';
 import koaBody from 'koa-bodyparser';
 import { graphqlKoa, graphiqlKoa } from 'apollo-server-koa';
 import schema from './schema/movie';
+import koacors from '@koa/cors'
 
 const app = new koa();
 const router = new koaRouter();
@@ -23,6 +24,7 @@ router.get('/graphiql', graphiqlKoa({
   // passHeader: `'Authorization': 'Bearer <test token>'`,
 }));
 
+app.use(koacors())
 app.use(router.routes());
 app.use(router.allowedMethods());
 app.listen(PORT, () => {
