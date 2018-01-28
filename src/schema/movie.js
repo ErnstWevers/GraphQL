@@ -11,6 +11,8 @@ const typeDefs = `
     title: String
     tagline: String
     release_date: String
+    poster_path: String
+    runtime: String
   }
 
   type Person {
