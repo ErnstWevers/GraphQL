@@ -15,13 +15,6 @@ const typeDefs = `
     runtime: String
   }
 
-  type Query {
-    movies(title: String): [Movie]
-    movie(id: String, imdb_id: String): Movie
-    cast(id:String): Movie
-    test : String
-  }
-
   type Cast {
     id: ID
     cast: [Person]
@@ -31,6 +24,13 @@ const typeDefs = `
   type Person {
     id: ID
     name: String
+  }
+
+  type Query {
+    movies(title: String): [Movie]
+    movie(id: String, imdb_id: String): Movie
+    cast(id:String): Cast
+    test : String
   }
 `;
 
@@ -66,8 +66,9 @@ const resolvers = {
     },
     cast: async (obj, args, context, info) => {
       if(args.id){
+        console.log(`fetching cast with id: ${args.id}`);
         const response = await http
-          .get(`https://api.themoviedb.org/3/movie/${args.id}?api_key=${MOVIEDBAPIKEY}&language=en-US`)
+          .get(`https://api.themoviedb.org/3/movie/${args.id}/credits?api_key=${MOVIEDBAPIKEY}&language=en-US`)
         return response
       }
     },
